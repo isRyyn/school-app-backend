@@ -3,6 +3,7 @@ package com.app.school.service.impl;
 import com.app.school.model.Transaction;
 import com.app.school.repository.TransactionRepository;
 import com.app.school.service.TransactionService;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,11 +26,13 @@ public class TransactionServiceImpl implements TransactionService {
     }
 
     @Override
+    @Transactional
     public Transaction saveTransaction(Transaction transaction) {
         return transactionRepository.save(transaction);
     }
 
     @Override
+    @Transactional
     public void deleteTransaction(Long id) {
         transactionRepository.deleteById(id);
     }
