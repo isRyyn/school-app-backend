@@ -1,6 +1,9 @@
 package com.app.school.model;
 
+import com.app.school.enums.Month;
 import jakarta.persistence.*;
+
+import java.time.LocalDateTime;
 
 @Entity
 public class Fee {
@@ -14,7 +17,11 @@ public class Fee {
     private Student student;
 
     private Double amount;
-    private int session;
+
+    @Enumerated(EnumType.STRING)
+    private Month month;
+
+    private LocalDateTime date;
 
     public Long getId() {
         return id;
@@ -36,11 +43,19 @@ public class Fee {
         this.amount = amount;
     }
 
-    public int getSession() {
-        return session;
+    public Month getMonth() {
+        return month;
     }
 
-    public void setSession(int session) {
-        this.session = session;
+    public void setMonth(Month month) {
+        this.month = month;
+    }
+
+    public LocalDateTime getDate() {
+        return date;
+    }
+
+    public void setDate(LocalDateTime date) {
+        this.date = date;
     }
 }

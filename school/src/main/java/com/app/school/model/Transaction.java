@@ -14,7 +14,7 @@ public class Transaction {
 
     private Double amount;
     private String category;
-    private LocalDateTime time;
+    private LocalDateTime date;
 
     @Enumerated(EnumType.STRING)
     private TransactionType type;
@@ -43,12 +43,12 @@ public class Transaction {
         this.category = category;
     }
 
-    public LocalDateTime getTime() {
-        return time;
+    public LocalDateTime getDate() {
+        return date;
     }
 
-    public void setTime(LocalDateTime time) {
-        this.time = time;
+    public void setDate(LocalDateTime date) {
+        this.date = date;
     }
 
     public TransactionType getType() {

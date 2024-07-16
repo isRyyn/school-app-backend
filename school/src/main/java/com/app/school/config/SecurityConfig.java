@@ -15,6 +15,7 @@ public class SecurityConfig {
         http.csrf(csrf -> csrf.disable())
                 .authorizeRequests()
                 .requestMatchers("/auth/**").permitAll()  // Allow all requests to /auth/** endpoints
+                .requestMatchers("/api/**").permitAll() // only Admin can access the api
                 .anyRequest().authenticated();
         return http.build();
     }

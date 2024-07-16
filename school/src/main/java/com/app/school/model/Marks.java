@@ -1,6 +1,7 @@
 package com.app.school.model;
 
 import com.app.school.enums.ExamType;
+import com.app.school.enums.Subject;
 import jakarta.persistence.*;
 
 @Entity
@@ -14,10 +15,10 @@ public class Marks {
     @JoinColumn(name = "studentId", nullable = false)
     private Student student;
 
-    private String subject;
+    @Enumerated(EnumType.STRING)
+    private Subject subject;
     private Double marks;
     private Double totalMarks;
-    private int session;
 
     @Enumerated(EnumType.STRING)
     private ExamType examName;
@@ -34,11 +35,11 @@ public class Marks {
         return student;
     }
 
-    public String getSubject() {
+    public Subject getSubject() {
         return subject;
     }
 
-    public void setSubject(String subject) {
+    public void setSubject(Subject subject) {
         this.subject = subject;
     }
 
@@ -56,14 +57,6 @@ public class Marks {
 
     public void setTotalMarks(Double totalMarks) {
         this.totalMarks = totalMarks;
-    }
-
-    public int getSession() {
-        return session;
-    }
-
-    public void setSession(int year) {
-        this.session = year;
     }
 
     public ExamType getExamName() {
