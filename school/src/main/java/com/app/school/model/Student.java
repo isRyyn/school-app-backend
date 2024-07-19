@@ -1,7 +1,6 @@
 package com.app.school.model;
 
 import com.app.school.enums.Gender;
-import com.app.school.enums.Standard;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
@@ -24,7 +23,10 @@ public class Student {
     private String previousSchool;
     private String session;
     private Double totalFees;
+
+    @ManyToOne
     private Standard standard;
+
     private Integer rollNo;
 
     @Lob

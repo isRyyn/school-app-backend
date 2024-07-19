@@ -3,5 +3,8 @@ package com.app.school.repository;
 import com.app.school.model.Student;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import java.util.List;
+
 public interface StudentRepository extends JpaRepository<Student, Long> {
+    List<Student> findByStandardId(Long standardId);
 }

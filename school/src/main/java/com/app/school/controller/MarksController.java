@@ -1,9 +1,10 @@
 package com.app.school.controller;
 
 import com.app.school.model.Marks;
+import com.app.school.model.Student;
+import com.app.school.model.Subject;
 import com.app.school.service.MarksService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -15,13 +16,18 @@ public class MarksController {
     @Autowired
     private MarksService marksService;
 
-    @GetMapping()
-    public ResponseEntity<List<Marks>> getAllMarks() {
-        return ResponseEntity.ok(marksService.getAllMarks());
+    @GetMapping("/students/{standardId}")
+    public List<Student> getStudentsByStandard(@PathVariable Long standardId) {
+        return marksService.getStudentsByStandard(standardId);
     }
 
-    @PostMapping()
-    public ResponseEntity<Marks> addMarks(@RequestBody Marks marks) {
-        return ResponseEntity.ok(marksService.addMarks(marks));
+    @GetMapping("/subjects/{standardId}")
+    public List<Subject> getSubjectsByStandard(@PathVariable Long standardId) {
+        return marksService.getSubjectsByStandard(standardId);
+    }
+
+    @PostMapping("/save")
+    public void saveMarks(@RequestBody List<Marks> marks) {
+        marksService.saveMarks(marks);
     }
 }

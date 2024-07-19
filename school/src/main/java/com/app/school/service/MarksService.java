@@ -1,15 +1,15 @@
 package com.app.school.service;
 
 import com.app.school.model.Marks;
+import com.app.school.model.Student;
+import com.app.school.model.Subject;
 
 import java.util.List;
 
 public interface MarksService {
-    List<Marks> getAllMarks();
+    List<Student> getStudentsByStandard(Long classId);
 
-    Marks getMarksById(Long id);
+    List<Subject> getSubjectsByStandard(Long classId);
 
-    Marks addMarks(Marks marks);
-
-    void deleteMarks(Long id);
+    void saveMarks(List<Marks> marks);
 }

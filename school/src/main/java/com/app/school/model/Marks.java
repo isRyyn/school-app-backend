@@ -1,7 +1,6 @@
 package com.app.school.model;
 
 import com.app.school.enums.ExamType;
-import com.app.school.enums.Subject;
 import jakarta.persistence.*;
 
 @Entity
@@ -15,8 +14,9 @@ public class Marks {
     @JoinColumn(name = "studentId", nullable = false)
     private Student student;
 
-    @Enumerated(EnumType.STRING)
+    @ManyToOne
     private Subject subject;
+
     private Double marks;
     private Double totalMarks;
 
