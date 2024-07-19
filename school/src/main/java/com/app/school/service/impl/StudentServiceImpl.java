@@ -3,6 +3,7 @@ package com.app.school.service.impl;
 import com.app.school.model.Student;
 import com.app.school.repository.StudentRepository;
 import com.app.school.service.StudentService;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,6 +27,13 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public Student addStudent(Student student) {
+        return studentRepository.save(student);
+    }
+
+    @Override
+    @Transactional
+    public Student updateStudent(Student student) {
+        Student s = studentRepository.findById(student.getId()).orElseThrow(() -> new RuntimeException("User not found."));
         return studentRepository.save(student);
     }
 
