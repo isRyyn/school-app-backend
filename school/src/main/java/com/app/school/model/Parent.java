@@ -4,10 +4,10 @@ import com.app.school.enums.Gender;
 import com.app.school.enums.Relation;
 import jakarta.persistence.*;
 
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table(name = "parents")
 public class Parent {
 
     @Id
@@ -21,6 +21,6 @@ public class Parent {
     private Gender gender;
     private Relation relation;
 
-    @ManyToMany(mappedBy = "parents")
-    private Set<Student> students;
+    @ElementCollection
+    private Set<Long> childIds = new HashSet<>();
 }

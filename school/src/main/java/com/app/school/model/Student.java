@@ -4,6 +4,7 @@ import com.app.school.enums.Gender;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -19,13 +20,14 @@ public class Student {
     private String middleName;
     private String lastName;
     private LocalDate dob;
+
+    @Enumerated(EnumType.STRING)
     private Gender gender;
+
     private String previousSchool;
     private String session;
     private Double totalFees;
 
-    @ManyToOne
-    private Standard standard;
 
     private Integer rollNo;
 
@@ -48,18 +50,23 @@ public class Student {
     private String vehicleNumber;
     private String vehicleRoute;
 
-    @ManyToMany
-    @JoinTable(
-            name = "student_parent",
-            joinColumns = @JoinColumn(name = "student_id"),
-            inverseJoinColumns = @JoinColumn(name = "parent_id")
-    )
-    private Set<Parent> parents;
-
     // Utility Details
     private Boolean uniform;
     private Boolean course;
 
+    private Long standardId;
+
+    @ElementCollection
+    private Set<Long> subjectIds = new HashSet<>();
+
+    @ElementCollection
+    private Set<Long> marksIds = new HashSet<>();
+
+    @ElementCollection
+    private Set<Long> parentsIds = new HashSet<>();
+
+    @ElementCollection
+    private Set<Long> feeIds = new HashSet<>();
 
     public Long getId() {
         return id;
@@ -131,14 +138,6 @@ public class Student {
 
     public void setTotalFees(Double totalFees) {
         this.totalFees = totalFees;
-    }
-
-    public Standard getStandard() {
-        return standard;
-    }
-
-    public void setStandard(Standard standard) {
-        this.standard = standard;
     }
 
     public Integer getRollNo() {
@@ -237,14 +236,6 @@ public class Student {
         this.vehicleRoute = vehicleRoute;
     }
 
-    public Set<Parent> getParents() {
-        return parents;
-    }
-
-    public void setParents(Set<Parent> parents) {
-        this.parents = parents;
-    }
-
     public Boolean getUniform() {
         return uniform;
     }
@@ -259,5 +250,45 @@ public class Student {
 
     public void setCourse(Boolean course) {
         this.course = course;
+    }
+
+    public Long getStandardId() {
+        return standardId;
+    }
+
+    public void setStandardId(Long standardId) {
+        this.standardId = standardId;
+    }
+
+    public Set<Long> getSubjectIds() {
+        return subjectIds;
+    }
+
+    public void setSubjectIds(Set<Long> subjectIds) {
+        this.subjectIds = subjectIds;
+    }
+
+    public Set<Long> getMarksIds() {
+        return marksIds;
+    }
+
+    public void setMarksIds(Set<Long> marksIds) {
+        this.marksIds = marksIds;
+    }
+
+    public Set<Long> getParentsIds() {
+        return parentsIds;
+    }
+
+    public void setParentsIds(Set<Long> parentsIds) {
+        this.parentsIds = parentsIds;
+    }
+
+    public Set<Long> getFeeIds() {
+        return feeIds;
+    }
+
+    public void setFeeIds(Set<Long> feeIds) {
+        this.feeIds = feeIds;
     }
 }

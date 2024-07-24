@@ -12,10 +12,6 @@ public class Fee {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "studentId", nullable = false)
-    private Student student;
-
     private Double amount;
 
     @Enumerated(EnumType.STRING)
@@ -23,16 +19,14 @@ public class Fee {
 
     private LocalDateTime date;
 
+    private Long studentId;
+
     public Long getId() {
         return id;
     }
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public Student getStudent() {
-        return student;
     }
 
     public Double getAmount() {
@@ -57,5 +51,13 @@ public class Fee {
 
     public void setDate(LocalDateTime date) {
         this.date = date;
+    }
+
+    public Long getStudentId() {
+        return studentId;
+    }
+
+    public void setStudentId(Long studentId) {
+        this.studentId = studentId;
     }
 }

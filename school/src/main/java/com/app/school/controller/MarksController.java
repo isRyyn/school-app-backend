@@ -1,10 +1,10 @@
 package com.app.school.controller;
 
+import com.app.school.enums.ExamType;
 import com.app.school.model.Marks;
-import com.app.school.model.Student;
-import com.app.school.model.Subject;
 import com.app.school.service.MarksService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -16,14 +16,14 @@ public class MarksController {
     @Autowired
     private MarksService marksService;
 
-    @GetMapping("/students/{standardId}")
-    public List<Student> getStudentsByStandard(@PathVariable Long standardId) {
-        return marksService.getStudentsByStandard(standardId);
+    @GetMapping
+    public ResponseEntity<List<Marks>> getAllMarks() {
+        return ResponseEntity.ok(marksService.getAllMarks());
     }
 
-    @GetMapping("/subjects/{standardId}")
-    public List<Subject> getSubjectsByStandard(@PathVariable Long standardId) {
-        return marksService.getSubjectsByStandard(standardId);
+    @GetMapping("/get/{standardId}/{examName}")
+    public ResponseEntity<List<Marks>> getAllMarksByStandardId(@PathVariable Long standardId, @PathVariable ExamType examName) {
+        return ResponseEntity.ok(marksService.getAllMarksByStandardIdAndExamName(standardId, examName));
     }
 
     @PostMapping("/save")

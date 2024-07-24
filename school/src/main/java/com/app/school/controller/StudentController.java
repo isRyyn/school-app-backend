@@ -50,22 +50,6 @@ public class StudentController {
     }
 
 
-    @PutMapping(consumes = {"multipart/form-data"})
-    public ResponseEntity<Student> updateStudent(
-            @RequestParam("student") String studentJson,
-            @RequestParam(value = "picture", required = false) MultipartFile picture) throws IOException {
-
-        Student student = new ObjectMapper().readValue(studentJson, Student.class);
-
-        if(picture != null) {
-            if (picture.getSize() > 10 * 1024 * 1024) {
-                return ResponseEntity.status(HttpStatus.PAYLOAD_TOO_LARGE).build();
-            }
-            student.setPicture(picture.getBytes());
-        }
-        return ResponseEntity.ok(studentService.updateStudent(student));
-    }
-
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> removeStudent(@PathVariable Long id) {
         studentService.removeStudent(id);

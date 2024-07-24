@@ -2,16 +2,27 @@ package com.app.school.model;
 
 import jakarta.persistence.*;
 
+import java.util.HashSet;
+import java.util.Set;
+
 @Entity
 public class Subject {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String name;
 
-    @ManyToOne
-    private Standard standard;
+    @ElementCollection
+    private Set<Long> standardIds = new HashSet<>();
+
+    @ElementCollection
+    private Set<Long> studentIds = new HashSet<>();
+
+    @ElementCollection
+    private Set<Long> marksIds = new HashSet<>();
+
+    // Getters and Setters
 
     public Long getId() {
         return id;
@@ -29,11 +40,27 @@ public class Subject {
         this.name = name;
     }
 
-    public Standard getStandard() {
-        return standard;
+    public Set<Long> getStandardIds() {
+        return standardIds;
     }
 
-    public void setStandard(Standard standard) {
-        this.standard = standard;
+    public void setStandardIds(Set<Long> standardIds) {
+        this.standardIds = standardIds;
+    }
+
+    public Set<Long> getStudentIds() {
+        return studentIds;
+    }
+
+    public void setStudentIds(Set<Long> studentIds) {
+        this.studentIds = studentIds;
+    }
+
+    public Set<Long> getMarksIds() {
+        return marksIds;
+    }
+
+    public void setMarksIds(Set<Long> marksIds) {
+        this.marksIds = marksIds;
     }
 }

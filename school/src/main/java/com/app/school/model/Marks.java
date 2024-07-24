@@ -10,37 +10,23 @@ public class Marks {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "studentId", nullable = false)
-    private Student student;
-
-    @ManyToOne
-    private Subject subject;
-
     private Double marks;
     private Double totalMarks;
 
     @Enumerated(EnumType.STRING)
     private ExamType examName;
 
+    private Long subjectId;
+    private Long standardId;
+    private Long studentId;
+
+    // Getters and Setters
     public Long getId() {
         return id;
     }
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public Student getStudent() {
-        return student;
-    }
-
-    public Subject getSubject() {
-        return subject;
-    }
-
-    public void setSubject(Subject subject) {
-        this.subject = subject;
     }
 
     public Double getMarks() {
@@ -65,5 +51,29 @@ public class Marks {
 
     public void setExamName(ExamType examName) {
         this.examName = examName;
+    }
+
+    public Long getSubjectId() {
+        return subjectId;
+    }
+
+    public void setSubjectId(Long subjectId) {
+        this.subjectId = subjectId;
+    }
+
+    public Long getStandardId() {
+        return standardId;
+    }
+
+    public void setStandardId(Long standardId) {
+        this.standardId = standardId;
+    }
+
+    public Long getStudentId() {
+        return studentId;
+    }
+
+    public void setStudentId(Long studentId) {
+        this.studentId = studentId;
     }
 }
