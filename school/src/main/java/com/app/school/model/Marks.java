@@ -19,6 +19,7 @@ public class Marks {
     private Long subjectId;
     private Long standardId;
     private Long studentId;
+    private Long sessionId;
 
     // Getters and Setters
     public Long getId() {
@@ -75,5 +76,13 @@ public class Marks {
 
     public void setStudentId(Long studentId) {
         this.studentId = studentId;
+    }
+
+    public Long getSessionId() {
+        return sessionId;
+    }
+
+    public void setSessionId(Long sessionId) {
+        this.sessionId = sessionId;
     }
 }

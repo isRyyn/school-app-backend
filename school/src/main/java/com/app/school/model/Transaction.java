@@ -40,7 +40,7 @@ public class Transaction {
     }
 
     public void setCategory(String category) {
-        this.category = category;
+        this.category = category != null ? category : "";
     }
 
     public LocalDateTime getDate() {
@@ -48,7 +48,7 @@ public class Transaction {
     }
 
     public void setDate(LocalDateTime date) {
-        this.date = date;
+        this.date = date != null ?  date : LocalDateTime.parse("");
     }
 
     public TransactionType getType() {

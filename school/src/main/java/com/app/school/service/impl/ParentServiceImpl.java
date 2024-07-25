@@ -31,6 +31,11 @@ public class ParentServiceImpl implements ParentService {
     }
 
     @Override
+    public void saveMultipleParents(List<Parent> parentList) {
+        parentRepository.saveAll(parentList);
+    }
+
+    @Override
     public void deleteParent(Long id) {
         parentRepository.deleteById(id);
     }

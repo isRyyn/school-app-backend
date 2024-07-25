@@ -1,28 +1,28 @@
 package com.app.school.model;
 
 import com.app.school.enums.Gender;
-import com.app.school.enums.Relation;
 import jakarta.persistence.*;
 
 import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-public class Parent {
+public class Teacher {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String firstName;
-    private String middleName;
     private String lastName;
-    private Integer mobile;
+    private String mobile;
     private Gender gender;
-    private Relation relation;
 
     @ElementCollection
-    private Set<Long> childIds = new HashSet<>();
+    private Set<Long> standardIds = new HashSet<>();
+
+    @ElementCollection
+    private Set<Long> subjectIds = new HashSet<>();
 
     public Long getId() {
         return id;
@@ -40,14 +40,6 @@ public class Parent {
         this.firstName = firstName;
     }
 
-    public String getMiddleName() {
-        return middleName;
-    }
-
-    public void setMiddleName(String middleName) {
-        this.middleName = middleName;
-    }
-
     public String getLastName() {
         return lastName;
     }
@@ -56,11 +48,11 @@ public class Parent {
         this.lastName = lastName;
     }
 
-    public Integer getMobile() {
+    public String getMobile() {
         return mobile;
     }
 
-    public void setMobile(Integer mobile) {
+    public void setMobile(String mobile) {
         this.mobile = mobile;
     }
 
@@ -72,19 +64,19 @@ public class Parent {
         this.gender = gender;
     }
 
-    public Relation getRelation() {
-        return relation;
+    public Set<Long> getStandardIds() {
+        return standardIds;
     }
 
-    public void setRelation(Relation relation) {
-        this.relation = relation;
+    public void setStandardIds(Set<Long> standardIds) {
+        this.standardIds = standardIds;
     }
 
-    public Set<Long> getChildIds() {
-        return childIds;
+    public Set<Long> getSubjectIds() {
+        return subjectIds;
     }
 
-    public void setChildIds(Set<Long> childIds) {
-        this.childIds = childIds;
+    public void setSubjectIds(Set<Long> subjectIds) {
+        this.subjectIds = subjectIds;
     }
 }

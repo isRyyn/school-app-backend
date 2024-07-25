@@ -12,5 +12,7 @@ public interface ParentService {
 
     Parent saveParent(Parent parent);
 
+    void saveMultipleParents(List<Parent> parentList);
+
     void deleteParent(Long id);
 }

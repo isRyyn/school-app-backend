@@ -25,9 +25,7 @@ public class Student {
     private Gender gender;
 
     private String previousSchool;
-    private String session;
     private Double totalFees;
-
 
     private Integer rollNo;
 
@@ -46,9 +44,7 @@ public class Student {
 
 
     // Transportation details
-    private String vehicleName;
-    private String vehicleNumber;
-    private String vehicleRoute;
+    private Long vehicleId;
 
     // Utility Details
     private Boolean uniform;
@@ -56,8 +52,14 @@ public class Student {
 
     private Long standardId;
 
-    @ElementCollection
-    private Set<Long> subjectIds = new HashSet<>();
+    // Documents submission
+    private Boolean docTC;
+    private Boolean docMarksheet;
+    private Boolean docAadhaar;
+    private Boolean docParentAadhaar;
+    private Boolean docPhotograph;
+    private Boolean docDobCertificate;
+
 
     @ElementCollection
     private Set<Long> marksIds = new HashSet<>();
@@ -122,14 +124,6 @@ public class Student {
 
     public void setPreviousSchool(String previousSchool) {
         this.previousSchool = previousSchool;
-    }
-
-    public String getSession() {
-        return session;
-    }
-
-    public void setSession(String session) {
-        this.session = session;
     }
 
     public Double getTotalFees() {
@@ -212,28 +206,12 @@ public class Student {
         this.pincode = pincode;
     }
 
-    public String getVehicleName() {
-        return vehicleName;
+    public Long getVehicleId() {
+        return vehicleId;
     }
 
-    public void setVehicleName(String vehicleName) {
-        this.vehicleName = vehicleName;
-    }
-
-    public String getVehicleNumber() {
-        return vehicleNumber;
-    }
-
-    public void setVehicleNumber(String vehicleNumber) {
-        this.vehicleNumber = vehicleNumber;
-    }
-
-    public String getVehicleRoute() {
-        return vehicleRoute;
-    }
-
-    public void setVehicleRoute(String vehicleRoute) {
-        this.vehicleRoute = vehicleRoute;
+    public void setVehicleId(Long vehicleId) {
+        this.vehicleId = vehicleId;
     }
 
     public Boolean getUniform() {
@@ -260,14 +238,6 @@ public class Student {
         this.standardId = standardId;
     }
 
-    public Set<Long> getSubjectIds() {
-        return subjectIds;
-    }
-
-    public void setSubjectIds(Set<Long> subjectIds) {
-        this.subjectIds = subjectIds;
-    }
-
     public Set<Long> getMarksIds() {
         return marksIds;
     }
@@ -290,5 +260,53 @@ public class Student {
 
     public void setFeeIds(Set<Long> feeIds) {
         this.feeIds = feeIds;
+    }
+
+    public Boolean getDocTC() {
+        return docTC;
+    }
+
+    public void setDocTC(Boolean docTC) {
+        this.docTC = docTC;
+    }
+
+    public Boolean getDocMarksheet() {
+        return docMarksheet;
+    }
+
+    public void setDocMarksheet(Boolean docMarksheet) {
+        this.docMarksheet = docMarksheet;
+    }
+
+    public Boolean getDocAadhaar() {
+        return docAadhaar;
+    }
+
+    public void setDocAadhaar(Boolean docAadhaar) {
+        this.docAadhaar = docAadhaar;
+    }
+
+    public Boolean getDocParentAadhaar() {
+        return docParentAadhaar;
+    }
+
+    public void setDocParentAadhaar(Boolean docParentAadhaar) {
+        this.docParentAadhaar = docParentAadhaar;
+    }
+
+    public Boolean getDocPhotograph() {
+        return docPhotograph;
+    }
+
+    public void setDocPhotograph(Boolean docPhotograph) {
+        this.docPhotograph = docPhotograph;
+    }
+
+    public Boolean getDocDobCertificate() {
+        return docDobCertificate;
+    }
+
+    public void setDocDobCertificate(Boolean docDobCertificate) {
+        this.docDobCertificate = docDobCertificate;
     }
 }

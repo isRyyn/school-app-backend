@@ -31,6 +31,11 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
+    public List<Student> getAllStudentdsByStandardId(Long standardId) {
+        return studentRepository.findAllByStandardId(standardId);
+    }
+
+    @Override
     public Student addStudent(Student student) {
 
         Standard standard = standardService.getStandardById(student.getStandardId()).orElse(null);

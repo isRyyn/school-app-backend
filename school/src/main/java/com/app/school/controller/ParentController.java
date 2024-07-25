@@ -30,6 +30,12 @@ public class ParentController {
         return ResponseEntity.ok(parentService.saveParent(parent));
     }
 
+    @PostMapping
+    public ResponseEntity<Void> saveMultipleParents(@RequestBody List<Parent> parentList) {
+        parentService.saveMultipleParents(parentList);
+        return ResponseEntity.noContent().build();
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteParent(@PathVariable Long id) {
         parentService.deleteParent(id);

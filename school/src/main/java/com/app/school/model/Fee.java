@@ -20,6 +20,7 @@ public class Fee {
     private LocalDateTime date;
 
     private Long studentId;
+    private Long sessionId;
 
     public Long getId() {
         return id;
@@ -59,5 +60,13 @@ public class Fee {
 
     public void setStudentId(Long studentId) {
         this.studentId = studentId;
+    }
+
+    public Long getSessionId() {
+        return sessionId;
+    }
+
+    public void setSessionId(Long sessionId) {
+        this.sessionId = sessionId;
     }
 }

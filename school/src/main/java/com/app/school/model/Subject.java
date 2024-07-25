@@ -16,8 +16,6 @@ public class Subject {
     @ElementCollection
     private Set<Long> standardIds = new HashSet<>();
 
-    @ElementCollection
-    private Set<Long> studentIds = new HashSet<>();
 
     @ElementCollection
     private Set<Long> marksIds = new HashSet<>();
@@ -46,21 +44,5 @@ public class Subject {
 
     public void setStandardIds(Set<Long> standardIds) {
         this.standardIds = standardIds;
-    }
-
-    public Set<Long> getStudentIds() {
-        return studentIds;
-    }
-
-    public void setStudentIds(Set<Long> studentIds) {
-        this.studentIds = studentIds;
-    }
-
-    public Set<Long> getMarksIds() {
-        return marksIds;
-    }
-
-    public void setMarksIds(Set<Long> marksIds) {
-        this.marksIds = marksIds;
     }
 }

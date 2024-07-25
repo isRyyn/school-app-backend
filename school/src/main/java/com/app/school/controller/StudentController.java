@@ -30,6 +30,11 @@ public class StudentController {
         return ResponseEntity.ok(studentService.getStudentById(id));
     }
 
+    @GetMapping("/standard/{standardId}")
+    public ResponseEntity<List<Student>> getStudentsByStandardId(@PathVariable Long standardId) {
+        return ResponseEntity.ok(studentService.getAllStudentdsByStandardId(standardId));
+    }
+
     @PostMapping(consumes = {"multipart/form-data"})
     public ResponseEntity<Student> addStudent(
             @RequestParam("student") String studentJson,

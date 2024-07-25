@@ -1,18 +1,25 @@
 package com.app.school.service.impl;
 
 import com.app.school.model.Standard;
+import com.app.school.model.Subject;
 import com.app.school.repository.StandardRepository;
+import com.app.school.repository.SubjectRepository;
 import com.app.school.service.StandardService;
+import com.app.school.service.SubjectService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 public class StandardServiceImpl implements StandardService {
     @Autowired
     StandardRepository standardRepository;
+
+    @Autowired
+    SubjectRepository subjectRepository;
 
     @Override
     public List<Standard> getAllStandards() {
@@ -24,6 +31,16 @@ public class StandardServiceImpl implements StandardService {
 
     @Override
     public Standard addStandard(Standard standard) {
+
+        standard.getSubjectIds().forEach(subjectId -> {
+            Subject subject = subjectRepository.findById(subjectId).orElse(null);
+            if(subject != null) {
+                Set<Long> standardIds = subject.getStandardIds();
+                standardIds.add(standard.getId());
+                subject.setStandardIds(standardIds);
+                subjectRepository.save(subject);
+            }
+        });
         return standardRepository.save(standard);
     }
 
