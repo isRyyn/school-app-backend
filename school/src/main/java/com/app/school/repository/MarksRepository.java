@@ -7,5 +7,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface MarksRepository extends JpaRepository<Marks, Long> {
-    List<Marks> findAllByStandardIdAndExamName(Long id, ExamType examName);
+    List<Marks> findAllByStandardIdAndExamNameAndSessionId(Long standardId, ExamType examName, Long sessionId);
 }

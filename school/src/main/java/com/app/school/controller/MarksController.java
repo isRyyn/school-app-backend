@@ -21,9 +21,9 @@ public class MarksController {
         return ResponseEntity.ok(marksService.getAllMarks());
     }
 
-    @GetMapping("/get/{standardId}/{examName}")
-    public ResponseEntity<List<Marks>> getAllMarksByStandardId(@PathVariable Long standardId, @PathVariable ExamType examName) {
-        return ResponseEntity.ok(marksService.getAllMarksByStandardIdAndExamName(standardId, examName));
+    @GetMapping("/get/{standardId}/{examName}/{sessionId}")
+    public ResponseEntity<List<Marks>> getAllMarksByStandardId(@PathVariable Long standardId, @PathVariable ExamType examName, @PathVariable Long sessionId) {
+        return ResponseEntity.ok(marksService.getAllMarksByStandardIdAndExamNameAndSessionId(standardId, examName, sessionId));
     }
 
     @PostMapping("/save")

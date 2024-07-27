@@ -10,6 +10,8 @@ public interface FeeService {
 
     Fee getFeesById(Long id);
 
+    List<Fee> getAllFeesByStudentIdAndSessionId(Long studentId, Long sessionId);
+
     Fee addFees(Fee fee);
 
     void deleteFees(Long id);

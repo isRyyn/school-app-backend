@@ -25,6 +25,11 @@ public class FeeServiceImpl implements FeeService {
     }
 
     @Override
+    public List<Fee> getAllFeesByStudentIdAndSessionId(Long studentId, Long sessionId) {
+        return feeRepository.findAllByStudentIdAndSessionId(studentId, sessionId);
+    }
+
+    @Override
     public Fee addFees(Fee fee) {
         return feeRepository.save(fee);
     }

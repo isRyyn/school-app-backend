@@ -8,6 +8,8 @@ import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class AuthServiceImpl implements AuthService {
 
@@ -15,8 +17,18 @@ public class AuthServiceImpl implements AuthService {
     private UserRepository userRepository;
 
     @Override
+    public List<User> getAllUsers() {
+        return userRepository.findAll();
+    }
+
+    @Override
+    public User getUserById(Long id) {
+        return userRepository.findById(id).orElse(null);
+    }
+
+    @Override
     public String login(String identifier, String password)  {
-        User user = userRepository.findByEmailOrMobile(identifier, identifier)
+        User user = userRepository.findByUsername(identifier)
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
         if (PasswordUtil.checkPassword(password, user.getPassword())) {
@@ -33,7 +45,7 @@ public class AuthServiceImpl implements AuthService {
         userRepository.findById(user.getId()).orElseThrow(() -> new RuntimeException("User not found"));
         try {
             user.setPassword(PasswordUtil.hashPassword(user.getPassword()));
-            userRepository.updateCredentials(user.getId(), user.getEmail(), user.getMobile(), user.getPassword(), user.getRole());
+            userRepository.updateCredentials(user.getId(), user.getUsername(), user.getPassword(), user.getRole(), user.getUserId());
             return "Credentials updated";
         } catch (Exception e) {
             throw new RuntimeException(e);

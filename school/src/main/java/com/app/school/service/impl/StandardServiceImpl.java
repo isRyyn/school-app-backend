@@ -1,5 +1,6 @@
 package com.app.school.service.impl;
 
+import com.app.school.controller.StandardController;
 import com.app.school.model.Standard;
 import com.app.school.model.Subject;
 import com.app.school.repository.StandardRepository;
@@ -31,17 +32,18 @@ public class StandardServiceImpl implements StandardService {
 
     @Override
     public Standard addStandard(Standard standard) {
+        Standard s = standardRepository.save(standard);
 
         standard.getSubjectIds().forEach(subjectId -> {
             Subject subject = subjectRepository.findById(subjectId).orElse(null);
             if(subject != null) {
                 Set<Long> standardIds = subject.getStandardIds();
-                standardIds.add(standard.getId());
+                standardIds.add(s.getId());
                 subject.setStandardIds(standardIds);
                 subjectRepository.save(subject);
             }
         });
-        return standardRepository.save(standard);
+        return s;
     }
 
     @Override

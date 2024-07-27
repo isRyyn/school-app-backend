@@ -21,8 +21,8 @@ public class MarksServiceImpl implements MarksService {
     }
 
     @Override
-    public List<Marks> getAllMarksByStandardIdAndExamName(Long standardId, ExamType examName) {
-        return marksRepository.findAllByStandardIdAndExamName(standardId, examName);
+    public List<Marks> getAllMarksByStandardIdAndExamNameAndSessionId(Long standardId, ExamType examName, Long sessionId) {
+        return marksRepository.findAllByStandardIdAndExamNameAndSessionId(standardId, examName, sessionId);
     }
 
     @Override

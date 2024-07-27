@@ -9,6 +9,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/auth")
 public class AuthController {
@@ -19,46 +21,56 @@ public class AuthController {
     @Autowired
     private UserRepository userRepository;
 
+    @GetMapping
+    public ResponseEntity<List<User>> getAllUsers() {
+        return ResponseEntity.ok(authService.getAllUsers());
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<User> getUserById(@PathVariable Long id) {
+        return ResponseEntity.ok(authService.getUserById(id));
+    }
+
     @PostMapping("/login")
-    public ResponseEntity<String> login(@RequestParam String identifier, @RequestParam String password) {
+    public ResponseEntity<Void> login(@RequestParam String username, @RequestParam String password) {
         try {
-            return ResponseEntity.ok(authService.login(identifier, password));
+            return ResponseEntity.ok().build();
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Login failed: " + e.getMessage());
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
     }
 
     @PutMapping("/update-credentials")
-    public ResponseEntity<String> updateCredentials(@RequestBody User user) {
+    public ResponseEntity<Void> updateCredentials(@RequestBody User user) {
         try {
-            return ResponseEntity.ok(authService.updateCredentials(user));
+            return ResponseEntity.ok().build();
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Credentials could not be updated: " + e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
 
     @PostMapping("/register")
-    public ResponseEntity<String> register(@RequestBody User user) {
-        if(userRepository.findByEmailOrMobile(user.getEmail(), user.getMobile()) != null) {
-            try {
-                user.setPassword(PasswordUtil.hashPassword(user.getPassword()));
-                userRepository.save(user);
-                return ResponseEntity.ok("User registered successfully!");
-            } catch (Exception e) {
-                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Registration failed! " + e.getMessage());
-            }
-        } else {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Email/Mobile is already taken");
+    public ResponseEntity<Void> register(@RequestBody User user) {
+        if (userRepository.findByUsername(user.getUsername()).isPresent()) {
+            return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).build();
+        }
+
+        try {
+            user.setPassword(PasswordUtil.hashPassword(user.getPassword()));
+            userRepository.save(user);
+            return ResponseEntity.ok().build();
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> deleteUser(@PathVariable Long id) {
+    public ResponseEntity<Void> deleteUser(@PathVariable Long id) {
         try {
             authService.deleteUser(id);
-            return ResponseEntity.ok("User deleted successfully");
+            return ResponseEntity.noContent().build();
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("User could not be deleted: " + e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
 }

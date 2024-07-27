@@ -20,6 +20,11 @@ public class FeeController {
         return ResponseEntity.ok(feeService.getAllFees());
     }
 
+    @GetMapping("/{studentId}/{sessionId}")
+    public ResponseEntity<List<Fee>> getAllFeeByStudentId(@PathVariable Long studentId, @PathVariable Long sessionId) {
+        return ResponseEntity.ok(feeService.getAllFeesByStudentIdAndSessionId(studentId, sessionId));
+    }
+
     @PostMapping()
     public ResponseEntity<Fee> addFees(@RequestBody Fee fee) {
         return ResponseEntity.ok(feeService.addFees(fee));

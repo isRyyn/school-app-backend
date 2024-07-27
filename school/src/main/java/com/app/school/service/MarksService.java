@@ -13,6 +13,6 @@ public interface MarksService {
 
     List<Marks> getAllMarks();
 
-    List<Marks> getAllMarksByStandardIdAndExamName(Long standardId, ExamType examName);
+    List<Marks> getAllMarksByStandardIdAndExamNameAndSessionId(Long standardId, ExamType examName,Long sessionId);
     void saveMarks(List<Marks> marks);
 }

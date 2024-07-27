@@ -30,7 +30,7 @@ public class ParentController {
         return ResponseEntity.ok(parentService.saveParent(parent));
     }
 
-    @PostMapping
+    @PostMapping("save/multiple")
     public ResponseEntity<Void> saveMultipleParents(@RequestBody List<Parent> parentList) {
         parentService.saveMultipleParents(parentList);
         return ResponseEntity.noContent().build();

@@ -11,22 +11,22 @@ import org.springframework.data.repository.query.Param;
 import java.util.Optional;
 
 public interface UserRepository extends JpaRepository<User, Long> {
-    Optional<User> findByEmailOrMobile(String email, String mobile);
+        Optional<User> findByUsername(String username);
 
     // Custom method to update user credentials
     @Modifying(clearAutomatically = true, flushAutomatically = true)
     @Transactional
     @Query("UPDATE User u " +
             "SET " +
-            "u.email = :newEmail, " +
-            "u.mobile = :newMobile, " +
+            "u.username = :newUsername, " +
             "u.password = :newPassword, " +
-            "u.role = :newRole " +
-            "WHERE u.id = :userId")
-    void updateCredentials(@Param("userId") Long userId,
-                           @Param("newEmail") String newEmail,
-                           @Param("newMobile") String newMobile,
+            "u.role = :newRole, " +
+            "u.userId = :newUserId " +
+            "WHERE u.id = :id")
+    void updateCredentials(@Param("id") Long id,
+                           @Param("newUsername") String newUsername,
                            @Param("newPassword") String newPassword,
-                           @Param("newRole") Role newRole
+                           @Param("newRole") Role newRole,
+                           @Param("newUserId") Long userId
     );
 }

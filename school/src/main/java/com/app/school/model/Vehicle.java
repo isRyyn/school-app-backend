@@ -12,10 +12,10 @@ public class Vehicle {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String vehicleName;
-    private String vehicleNumber;
-    private String vehicleRoute;
-    private String vehicleDriver;
+    private String name;
+    private String number;
+    private String route;
+    private String driver;
 
     public Long getId() {
         return id;
@@ -25,35 +25,35 @@ public class Vehicle {
         this.id = id;
     }
 
-    public String getVehicleName() {
-        return vehicleName;
+    public String getName() {
+        return name;
     }
 
-    public void setVehicleName(String vehicleName) {
-        this.vehicleName = vehicleName;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getVehicleNumber() {
-        return vehicleNumber;
+    public String getNumber() {
+        return number;
     }
 
-    public void setVehicleNumber(String vehicleNumber) {
-        this.vehicleNumber = vehicleNumber;
+    public void setNumber(String number) {
+        this.number = number;
     }
 
-    public String getVehicleRoute() {
-        return vehicleRoute;
+    public String getRoute() {
+        return route;
     }
 
-    public void setVehicleRoute(String vehicleRoute) {
-        this.vehicleRoute = vehicleRoute;
+    public void setRoute(String route) {
+        this.route = route;
     }
 
-    public String getVehicleDriver() {
-        return vehicleDriver;
+    public String getDriver() {
+        return driver;
     }
 
-    public void setVehicleDriver(String vehicleDriver) {
-        this.vehicleDriver = vehicleDriver;
+    public void setDriver(String driver) {
+        this.driver = driver;
     }
 }

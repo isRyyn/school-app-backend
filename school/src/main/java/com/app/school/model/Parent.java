@@ -17,7 +17,7 @@ public class Parent {
     private String firstName;
     private String middleName;
     private String lastName;
-    private Integer mobile;
+    private String mobile;
     private Gender gender;
     private Relation relation;
 
@@ -56,11 +56,11 @@ public class Parent {
         this.lastName = lastName;
     }
 
-    public Integer getMobile() {
+    public String getMobile() {
         return mobile;
     }
 
-    public void setMobile(Integer mobile) {
+    public void setMobile(String mobile) {
         this.mobile = mobile;
     }
 

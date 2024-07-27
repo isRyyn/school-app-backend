@@ -3,7 +3,6 @@ package com.app.school.model;
 import com.app.school.enums.Gender;
 import jakarta.persistence.*;
 
-import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -19,7 +18,7 @@ public class Student {
 
     private String middleName;
     private String lastName;
-    private LocalDate dob;
+    private String dob;
 
     @Enumerated(EnumType.STRING)
     private Gender gender;
@@ -36,7 +35,7 @@ public class Student {
 
     // Contact details
     private String email;
-    private Integer mobile;
+    private String mobile;
     private String address;
     private String city;
     private String state;
@@ -55,8 +54,8 @@ public class Student {
     // Documents submission
     private Boolean docTC;
     private Boolean docMarksheet;
-    private Boolean docAadhaar;
-    private Boolean docParentAadhaar;
+    private Boolean docAadhar;
+    private Boolean docParentAadhar;
     private Boolean docPhotograph;
     private Boolean docDobCertificate;
 
@@ -102,11 +101,11 @@ public class Student {
         this.lastName = lastName;
     }
 
-    public LocalDate getDob() {
+    public String getDob() {
         return dob;
     }
 
-    public void setDob(LocalDate dob) {
+    public void setDob(String dob) {
         this.dob = dob;
     }
 
@@ -155,7 +154,7 @@ public class Student {
     }
 
     public void setuDiasCode(String uDiasCode) {
-        this.uDiasCode = uDiasCode;
+        this.uDiasCode = uDiasCode == null ? "" : uDiasCode;
     }
 
     public String getEmail() {
@@ -166,11 +165,11 @@ public class Student {
         this.email = email;
     }
 
-    public Integer getMobile() {
+    public String getMobile() {
         return mobile;
     }
 
-    public void setMobile(Integer mobile) {
+    public void setMobile(String mobile) {
         this.mobile = mobile;
     }
 
@@ -278,20 +277,20 @@ public class Student {
         this.docMarksheet = docMarksheet;
     }
 
-    public Boolean getDocAadhaar() {
-        return docAadhaar;
+    public Boolean getDocAadhar() {
+        return docAadhar;
     }
 
-    public void setDocAadhaar(Boolean docAadhaar) {
-        this.docAadhaar = docAadhaar;
+    public void setDocAadhar(Boolean docAadhar) {
+        this.docAadhar = docAadhar;
     }
 
-    public Boolean getDocParentAadhaar() {
-        return docParentAadhaar;
+    public Boolean getDocParentAadhar() {
+        return docParentAadhar;
     }
 
-    public void setDocParentAadhaar(Boolean docParentAadhaar) {
-        this.docParentAadhaar = docParentAadhaar;
+    public void setDocParentAadhar(Boolean docParentAadhar) {
+        this.docParentAadhar = docParentAadhar;
     }
 
     public Boolean getDocPhotograph() {
