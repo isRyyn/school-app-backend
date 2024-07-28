@@ -1,5 +1,6 @@
 package com.app.school.service.impl;
 
+import com.app.school.enums.Role;
 import com.app.school.model.User;
 import com.app.school.repository.UserRepository;
 import com.app.school.service.AuthService;
@@ -27,13 +28,13 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
-    public String login(String identifier, String password)  {
-        User user = userRepository.findByUsername(identifier)
+    public Long login(User u)  {
+        User user = userRepository.findByUsername(u.getUsername())
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
-        if (PasswordUtil.checkPassword(password, user.getPassword())) {
+        if (PasswordUtil.checkPassword(u.getPassword(), user.getPassword()) && user.getRole() == u.getRole()) {
             // Optionally generate a token here
-            return "Login successful!";
+            return user.getUserId();
         } else {
             throw new RuntimeException("Invalid credentials");
         }

@@ -26,6 +26,11 @@ public class MarksServiceImpl implements MarksService {
     }
 
     @Override
+    public List<Marks> getAllMarksOfStudentForSession(Long sessionId, Long studentId) {
+        return marksRepository.findAllBySessionIdAndStudentId(sessionId, studentId);
+    }
+
+    @Override
     public void saveMarks(List<Marks> marks) {
         marksRepository.saveAll(marks);
     }

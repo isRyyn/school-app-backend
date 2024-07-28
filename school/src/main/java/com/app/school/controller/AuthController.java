@@ -1,5 +1,6 @@
 package com.app.school.controller;
 
+import com.app.school.enums.Role;
 import com.app.school.model.User;
 import com.app.school.repository.UserRepository;
 import com.app.school.service.AuthService;
@@ -32,9 +33,9 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<Void> login(@RequestParam String username, @RequestParam String password) {
+    public ResponseEntity<Long> login(@RequestBody User user) {
         try {
-            return ResponseEntity.ok().build();
+            return ResponseEntity.ok(authService.login(user));
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
@@ -43,6 +44,7 @@ public class AuthController {
     @PutMapping("/update-credentials")
     public ResponseEntity<Void> updateCredentials(@RequestBody User user) {
         try {
+            authService.updateCredentials(user);
             return ResponseEntity.ok().build();
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();

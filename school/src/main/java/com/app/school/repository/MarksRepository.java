@@ -8,4 +8,6 @@ import java.util.List;
 
 public interface MarksRepository extends JpaRepository<Marks, Long> {
     List<Marks> findAllByStandardIdAndExamNameAndSessionId(Long standardId, ExamType examName, Long sessionId);
+
+    List<Marks> findAllBySessionIdAndStudentId(Long sessionId, Long studentId);
 }

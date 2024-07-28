@@ -5,6 +5,7 @@ import com.app.school.model.Marks;
 import com.app.school.service.MarksService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -25,6 +26,12 @@ public class MarksController {
     public ResponseEntity<List<Marks>> getAllMarksByStandardId(@PathVariable Long standardId, @PathVariable ExamType examName, @PathVariable Long sessionId) {
         return ResponseEntity.ok(marksService.getAllMarksByStandardIdAndExamNameAndSessionId(standardId, examName, sessionId));
     }
+
+    @GetMapping("/get/{sessionId}/{studentId}")
+    public ResponseEntity<List<Marks>> getAllMarksOfStudentForSession(@PathVariable Long sessionId, @PathVariable Long studentId) {
+        return ResponseEntity.ok(marksService.getAllMarksOfStudentForSession(sessionId, studentId));
+    }
+
 
     @PostMapping("/save")
     public void saveMarks(@RequestBody List<Marks> marks) {

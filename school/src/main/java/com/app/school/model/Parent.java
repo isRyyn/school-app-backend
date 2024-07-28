@@ -18,7 +18,11 @@ public class Parent {
     private String middleName;
     private String lastName;
     private String mobile;
+
+    @Enumerated(EnumType.STRING)
     private Gender gender;
+
+    @Enumerated(EnumType.STRING)
     private Relation relation;
 
     @ElementCollection
