@@ -29,4 +29,10 @@ public class FeeController {
     public ResponseEntity<Fee> addFees(@RequestBody Fee fee) {
         return ResponseEntity.ok(feeService.addFees(fee));
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteFee(@PathVariable Long id) {
+        feeService.deleteFees(id);
+        return ResponseEntity.noContent().build();
+    }
 }

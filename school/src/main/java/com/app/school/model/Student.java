@@ -36,6 +36,7 @@ public class Student {
     // Contact details
     private String email;
     private String mobile;
+    private String landline;
     private String address;
     private String city;
     private String state;
@@ -171,6 +172,14 @@ public class Student {
 
     public void setMobile(String mobile) {
         this.mobile = mobile;
+    }
+
+    public String getLandline() {
+        return landline;
+    }
+
+    public void setLandline(String landline) {
+        this.landline = landline;
     }
 
     public String getAddress() {
