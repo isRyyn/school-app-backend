@@ -12,7 +12,20 @@ public class Fee {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Double amount;
+
+    private Double total;
+    private Double deposited;
+
+    private Double monthly;
+    private Double registration;
+    private Double course;
+    private Double copies;
+    private Double dress;
+    private Double shoes;
+    private Double tieBelt;
+    private Double socks;
+    private Double van;
+    private Double diary;
 
     @Enumerated(EnumType.STRING)
     private Month month;
@@ -20,6 +33,7 @@ public class Fee {
     private LocalDateTime date;
 
     private Long studentId;
+    private Long standardId;
     private Long sessionId;
 
     public Long getId() {
@@ -30,12 +44,100 @@ public class Fee {
         this.id = id;
     }
 
-    public Double getAmount() {
-        return amount;
+    public Double getDeposited() {
+        return deposited;
     }
 
-    public void setAmount(Double amount) {
-        this.amount = amount;
+    public void setDeposited(Double deposited) {
+        this.deposited = deposited;
+    }
+
+    public Double getMonthly() {
+        return monthly;
+    }
+
+    public void setMonthly(Double monthly) {
+        this.monthly = monthly;
+    }
+
+    public Double getTotal() {
+        return total;
+    }
+
+    public void setTotal(Double total) {
+        this.total = total;
+    }
+
+    public Double getRegistration() {
+        return registration;
+    }
+
+    public void setRegistration(Double registration) {
+        this.registration = registration;
+    }
+
+    public Double getCourse() {
+        return course;
+    }
+
+    public void setCourse(Double course) {
+        this.course = course;
+    }
+
+    public Double getCopies() {
+        return copies;
+    }
+
+    public void setCopies(Double copies) {
+        this.copies = copies;
+    }
+
+    public Double getDress() {
+        return dress;
+    }
+
+    public void setDress(Double dress) {
+        this.dress = dress;
+    }
+
+    public Double getShoes() {
+        return shoes;
+    }
+
+    public void setShoes(Double shoes) {
+        this.shoes = shoes;
+    }
+
+    public Double getTieBelt() {
+        return tieBelt;
+    }
+
+    public void setTieBelt(Double tieBelt) {
+        this.tieBelt = tieBelt;
+    }
+
+    public Double getSocks() {
+        return socks;
+    }
+
+    public void setSocks(Double socks) {
+        this.socks = socks;
+    }
+
+    public Double getVan() {
+        return van;
+    }
+
+    public void setVan(Double van) {
+        this.van = van;
+    }
+
+    public Double getDiary() {
+        return diary;
+    }
+
+    public void setDiary(Double diary) {
+        this.diary = diary;
     }
 
     public Month getMonth() {
@@ -60,6 +162,14 @@ public class Fee {
 
     public void setStudentId(Long studentId) {
         this.studentId = studentId;
+    }
+
+    public Long getStandardId() {
+        return standardId;
+    }
+
+    public void setStandardId(Long standardId) {
+        this.standardId = standardId;
     }
 
     public Long getSessionId() {

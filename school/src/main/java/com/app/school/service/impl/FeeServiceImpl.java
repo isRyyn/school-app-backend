@@ -14,9 +14,12 @@ public class FeeServiceImpl implements FeeService {
     @Autowired
     FeeRepository feeRepository;
 
+    @Autowired
+    SharedService sharedService;
+
     @Override
     public List<Fee> getAllFees() {
-        return feeRepository.findAll();
+        return feeRepository.findAllBySessionId(sharedService.getSelectedSession());
     }
 
     @Override

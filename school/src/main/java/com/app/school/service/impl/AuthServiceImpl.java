@@ -1,6 +1,5 @@
 package com.app.school.service.impl;
 
-import com.app.school.enums.Role;
 import com.app.school.model.User;
 import com.app.school.repository.UserRepository;
 import com.app.school.service.AuthService;

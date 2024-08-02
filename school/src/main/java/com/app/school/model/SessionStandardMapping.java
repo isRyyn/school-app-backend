@@ -16,6 +16,15 @@ public class SessionStandardMapping {
     private Long standardId;
     private Long studentId;
 
+    public SessionStandardMapping() {
+    }
+
+    public SessionStandardMapping(Long sessionId, Long standardId, Long studentId) {
+        this.sessionId = sessionId;
+        this.standardId = standardId;
+        this.studentId = studentId;
+    }
+
     public Long getId() {
         return id;
     }

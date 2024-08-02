@@ -42,6 +42,9 @@ public class Student {
     private String state;
     private Integer pincode;
 
+    // Login details
+    private Long userId;
+
 
     // Transportation details
     private Long vehicleId;
@@ -212,6 +215,14 @@ public class Student {
 
     public void setPincode(Integer pincode) {
         this.pincode = pincode;
+    }
+
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 
     public Long getVehicleId() {

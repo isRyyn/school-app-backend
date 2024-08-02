@@ -19,6 +19,7 @@ public class CorsConfig {
         config.setAllowedOrigins(Arrays.asList("http://localhost:4200", "https://school.qbytemedia.com"));
         config.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         config.addAllowedHeader("*");
+        config.setAllowCredentials(true);
 
         source.registerCorsConfiguration("/**", config);
         return new CorsFilter(source);

@@ -18,6 +18,8 @@ public class Teacher {
     private String mobile;
     private Gender gender;
 
+    private Long userId;
+
     @ElementCollection
     private Set<Long> standardIds = new HashSet<>();
 
@@ -62,6 +64,14 @@ public class Teacher {
 
     public void setGender(Gender gender) {
         this.gender = gender;
+    }
+
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 
     public Set<Long> getStandardIds() {

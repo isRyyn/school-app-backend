@@ -7,4 +7,6 @@ import java.util.List;
 
 public interface FeeRepository extends JpaRepository<Fee, Long> {
     List<Fee> findAllByStudentIdAndSessionId(Long studentId, Long sessionId);
+
+    List<Fee> findAllBySessionId(Long sessionId);
 }

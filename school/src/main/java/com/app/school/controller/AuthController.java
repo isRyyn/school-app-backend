@@ -1,9 +1,14 @@
 package com.app.school.controller;
 
 import com.app.school.enums.Role;
+import com.app.school.model.Student;
+import com.app.school.model.Teacher;
 import com.app.school.model.User;
 import com.app.school.repository.UserRepository;
 import com.app.school.service.AuthService;
+import com.app.school.service.StudentService;
+import com.app.school.service.TeacherService;
+import com.app.school.service.impl.SharedService;
 import com.app.school.util.PasswordUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -22,6 +27,15 @@ public class AuthController {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private SharedService sharedService;
+
+    @Autowired
+    private StudentService studentService;
+
+    @Autowired
+    private TeacherService teacherService;
+
     @GetMapping
     public ResponseEntity<List<User>> getAllUsers() {
         return ResponseEntity.ok(authService.getAllUsers());
@@ -32,9 +46,10 @@ public class AuthController {
         return ResponseEntity.ok(authService.getUserById(id));
     }
 
-    @PostMapping("/login")
-    public ResponseEntity<Long> login(@RequestBody User user) {
+    @PostMapping("/login/{sessionId}")
+    public ResponseEntity<Long> login(@PathVariable Long sessionId, @RequestBody User user) {
         try {
+            sharedService.setSelectedSession(sessionId);
             return ResponseEntity.ok(authService.login(user));
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
@@ -59,8 +74,18 @@ public class AuthController {
 
         try {
             user.setPassword(PasswordUtil.hashPassword(user.getPassword()));
-            userRepository.save(user);
-            return ResponseEntity.ok().build();
+            User savedUser = userRepository.save(user);
+
+            if(user.getRole() == Role.STUDENT) {
+                Student s = studentService.getStudentById(user.getUserId());
+                s.setUserId(savedUser.getId());
+                studentService.addStudent(s, false);
+            } else if (user.getRole() == Role.TEACHER) {
+                Teacher t = teacherService.getTeacherById(user.getUserId());
+                t.setUserId(savedUser.getId());
+                teacherService.addTeacher(t);
+            }
+             return ResponseEntity.ok().build();
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }

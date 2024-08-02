@@ -51,7 +51,13 @@ public class StudentController {
             student.setPicture(picture.getBytes());
         }
 
-        return ResponseEntity.ok(studentService.addStudent(student));
+        return ResponseEntity.ok(studentService.addStudent(student, true));
+    }
+
+    @PostMapping("/promote")
+    public ResponseEntity<Void> promoteStudents(@RequestParam("studentIds") List<Long> studentIds, @RequestParam("standardIds") List<Long> standardIds, @RequestParam("sessionId") Long sessionId) {
+        this.studentService.saveStudentStandards(studentIds, standardIds, sessionId);
+        return ResponseEntity.noContent().build();
     }
 
 
