@@ -10,6 +10,8 @@ public interface StandardService {
     List<Standard> getAllStandards();
 
     Optional<Standard> getStandardById(Long id);
+
+    Standard getStandardByName(String name);
     Standard addStandard(Standard standard);
 
     void deleteStandard(Long id);

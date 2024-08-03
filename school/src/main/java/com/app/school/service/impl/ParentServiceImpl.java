@@ -34,7 +34,9 @@ public class ParentServiceImpl implements ParentService {
 
     @Override
     public Parent saveParent(Parent parent) {
-        return parentRepository.save(parent);
+        Parent savedParent = parentRepository.save(parent);
+        addParentToChild(savedParent);
+        return savedParent;
     }
 
     @Override
@@ -70,5 +72,18 @@ public class ParentServiceImpl implements ParentService {
             student.setParentsIds(parentIds);
             studentService.addStudent(student, false);
         }
+    }
+
+    private void addParentToChild(Parent savedParent) {
+        Set<Long> studentIds = savedParent.getChildIds();
+        studentIds.forEach(studentId -> {
+            Student student = studentService.getStudentById(studentId);
+            if(student != null) {
+                Set<Long> parentIds = student.getParentsIds();
+                parentIds.add(savedParent.getId());
+                student.setParentsIds(parentIds);
+                studentService.addStudent(student, false);
+            }
+        });
     }
 }

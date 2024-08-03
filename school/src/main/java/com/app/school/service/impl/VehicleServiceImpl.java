@@ -25,6 +25,10 @@ public class VehicleServiceImpl implements VehicleService {
     }
 
     @Override
+    public Vehicle getVehicleByName(String name) {
+        return vehicleRepository.findByName(name).orElse(null);
+    }
+    @Override
     public Vehicle addVehicle(Vehicle vehicle) {
         return vehicleRepository.save(vehicle);
     }

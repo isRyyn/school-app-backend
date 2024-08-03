@@ -8,6 +8,8 @@ public interface VehicleService {
 
     Vehicle getVehicleById(Long id);
 
+    Vehicle getVehicleByName(String name);
+
     Vehicle addVehicle(Vehicle vehicle);
 
     void deleteVehicle(Long id);

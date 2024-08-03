@@ -31,6 +31,11 @@ public class StandardServiceImpl implements StandardService {
     public Optional<Standard> getStandardById(Long id) { return standardRepository.findById(id); }
 
     @Override
+    public Standard getStandardByName(String name) {
+        return standardRepository.findByName(name).orElse(null);
+    }
+
+    @Override
     public Standard addStandard(Standard standard) {
         Standard s = standardRepository.save(standard);
 

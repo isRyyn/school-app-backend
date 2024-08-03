@@ -28,8 +28,7 @@ public class Student {
 
     private Integer rollNo;
 
-    @Lob
-    private byte[] picture;
+    private String picture;
     private String uDiasCode;
 
 
@@ -145,11 +144,11 @@ public class Student {
         this.rollNo = rollNo;
     }
 
-    public byte[] getPicture() {
+    public String getPicture() {
         return picture;
     }
 
-    public void setPicture(byte[] picture) {
+    public void setPicture(String picture) {
         this.picture = picture;
     }
 
