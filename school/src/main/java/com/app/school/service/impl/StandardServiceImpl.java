@@ -39,15 +39,17 @@ public class StandardServiceImpl implements StandardService {
     public Standard addStandard(Standard standard) {
         Standard s = standardRepository.save(standard);
 
-        standard.getSubjectIds().forEach(subjectId -> {
-            Subject subject = subjectRepository.findById(subjectId).orElse(null);
-            if(subject != null) {
-                Set<Long> standardIds = subject.getStandardIds();
-                standardIds.add(s.getId());
-                subject.setStandardIds(standardIds);
-                subjectRepository.save(subject);
-            }
-        });
+        if(standard.getSubjectIds() != null) {
+            standard.getSubjectIds().forEach(subjectId -> {
+                Subject subject = subjectRepository.findById(subjectId).orElse(null);
+                if(subject != null) {
+                    Set<Long> standardIds = subject.getStandardIds();
+                    standardIds.add(s.getId());
+                    subject.setStandardIds(standardIds);
+                    subjectRepository.save(subject);
+                }
+            });
+        }
         return s;
     }
 

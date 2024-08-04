@@ -36,15 +36,17 @@ public class SubjectServiceImpl implements SubjectService {
     public Subject addSubject(Subject subject) {
         Subject s = subjectRepository.save(subject);
 
-        subject.getStandardIds().forEach(standardId -> {
-            Standard standard = standardRepository.findById(standardId).orElse(null);
-            if(standard != null) {
-                Set<Long> subjectsIds = standard.getSubjectIds();
-                subjectsIds.add(s.getId());
-                standard.setSubjectIds(subjectsIds);
-                standardRepository.save(standard);
-            }
-        });
+        if(subject.getStandardIds() != null) {
+            subject.getStandardIds().forEach(standardId -> {
+                Standard standard = standardRepository.findById(standardId).orElse(null);
+                if(standard != null) {
+                    Set<Long> subjectsIds = standard.getSubjectIds();
+                    subjectsIds.add(s.getId());
+                    standard.setSubjectIds(subjectsIds);
+                    standardRepository.save(standard);
+                }
+            });
+        }
         return s;
     }
 
