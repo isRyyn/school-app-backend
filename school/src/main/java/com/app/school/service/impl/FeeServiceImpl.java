@@ -1,8 +1,10 @@
 package com.app.school.service.impl;
 
 import com.app.school.model.Fee;
+import com.app.school.model.Student;
 import com.app.school.repository.FeeRepository;
 import com.app.school.service.FeeService;
+import com.app.school.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +18,9 @@ public class FeeServiceImpl implements FeeService {
 
     @Autowired
     SharedService sharedService;
+
+    @Autowired
+    StudentService studentService;
 
     @Override
     public List<Fee> getAllFees() {
@@ -34,6 +39,9 @@ public class FeeServiceImpl implements FeeService {
 
     @Override
     public Fee addFees(Fee fee) {
+        Student s = studentService.getStudentById(fee.getStudentId());
+        fee.setStandardId(s.getStandardId());
+
         return feeRepository.save(fee);
     }
 
