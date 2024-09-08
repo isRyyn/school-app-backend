@@ -36,7 +36,7 @@ public class ImportFileService {
     @Autowired
     private SessionService sessionService;
 
-    public void readExcelAndSaveStudentData(MultipartFile file) {
+    public void readExcelAndSaveStudentData(MultipartFile file, Long sessionId) {
         try (InputStream inputStream = file.getInputStream();
              Workbook workbook = new XSSFWorkbook(inputStream)) {
 
@@ -110,7 +110,7 @@ public class ImportFileService {
                 student.setVehicleId(vehicleId);
                 // Set other fields
 
-                studentService.addStudent(student, true);
+                studentService.addStudent(student, true, sessionId);
             }
         } catch (IOException e) {
             e.printStackTrace();

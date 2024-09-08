@@ -50,8 +50,9 @@ public class StudentController {
         return ResponseEntity.ok(studentService.getAllStudentdsByStandardId(standardId));
     }
 
-    @PostMapping(consumes = {"multipart/form-data"})
+    @PostMapping(value = "/{sessionId}", consumes = {"multipart/form-data"})
     public ResponseEntity<Student> addStudent(
+            @PathVariable Long sessionId,
             @RequestParam("student") String studentJson,
             @RequestParam(value ="picture", required = false) MultipartFile picture) throws IOException {
 
@@ -77,7 +78,7 @@ public class StudentController {
             // Update student's picture field
             student.setPicture("api/student/uploads/" + filename);
         }
-        return ResponseEntity.ok(studentService.addStudent(student, true));
+        return ResponseEntity.ok(studentService.addStudent(student, true, sessionId));
     }
 
     @GetMapping("/uploads/{filename:.+}")

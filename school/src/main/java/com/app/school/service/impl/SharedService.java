@@ -11,7 +11,8 @@ public class SharedService {
         this.selectedSession = sessionId;
     }
 
-    public Long getSelectedSession() {
-        return selectedSession;
-    }
+    // Invalid case, since sessions will conflict if 2 users are using simultaneously
+//    public Long getSelectedSession() {
+//        return selectedSession;
+//    }
 }

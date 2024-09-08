@@ -70,7 +70,7 @@ public class ParentServiceImpl implements ParentService {
             Set<Long> parentIds = student.getParentsIds();
             parentIds.addAll(savedParentsIds);
             student.setParentsIds(parentIds);
-            studentService.addStudent(student, false);
+            studentService.addStudent(student, false, -1L);
         }
     }
 
@@ -82,7 +82,7 @@ public class ParentServiceImpl implements ParentService {
                 Set<Long> parentIds = student.getParentsIds();
                 parentIds.add(savedParent.getId());
                 student.setParentsIds(parentIds);
-                studentService.addStudent(student, false);
+                studentService.addStudent(student, false, -1L);
             }
         });
     }

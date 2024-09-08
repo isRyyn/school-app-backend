@@ -79,7 +79,7 @@ public class AuthController {
             if(user.getRole() == Role.STUDENT) {
                 Student s = studentService.getStudentById(user.getUserId());
                 s.setUserId(savedUser.getId());
-                studentService.addStudent(s, false);
+                studentService.addStudent(s, false, -1L);
             } else if (user.getRole() == Role.TEACHER) {
                 Teacher t = teacherService.getTeacherById(user.getUserId());
                 t.setUserId(savedUser.getId());

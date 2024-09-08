@@ -14,7 +14,7 @@ public interface StudentService {
 
     List<Student> getAllStudentdsByStandardId(Long standardId);
 
-    Student addStudent(Student student, boolean addMapping);
+    Student addStudent(Student student, boolean addMapping, Long sessionId);
 
     void saveStudentStandards(List<Long> studentIds, List<Long> standardIds, Long sessionId);
 

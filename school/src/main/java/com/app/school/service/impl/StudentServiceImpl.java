@@ -49,7 +49,7 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public Student addStudent(Student student, boolean addMapping) {
+    public Student addStudent(Student student, boolean addMapping, Long sessionId) {
 
         // add student to selected class
         Standard standard = standardService.getStandardById(student.getStandardId()).orElse(null);
@@ -62,9 +62,9 @@ public class StudentServiceImpl implements StudentService {
 
         Student s = studentRepository.save(student);
 
-        if(addMapping) {
+        if(addMapping && sessionId >= 0) {
             // add student to session-standard mapping
-            this.addSessionStandardMapping(s.getId(), s.getStandardId(), sharedService.getSelectedSession());
+            this.addSessionStandardMapping(s.getId(), s.getStandardId(), sessionId);
         }
         return s;
     }
@@ -76,7 +76,7 @@ public class StudentServiceImpl implements StudentService {
         for (int i = 0; i < students.size(); i++) {
             Student s = students.get(i);
             s.setStandardId(standardIds.get(i));
-            this.addStudent(s, false);
+            this.addStudent(s, false, -1L);
             this.addSessionStandardMapping(s.getId(), standardIds.get(i), sessionId);
         }
     }
