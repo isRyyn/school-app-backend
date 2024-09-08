@@ -39,6 +39,11 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
+    public Student getStudentByCode(String code) {
+        return studentRepository.findByUDiasCode(code).orElse(null);
+    }
+
+    @Override
     public List<Student> getAllStudentdsByStandardId(Long standardId) {
         return studentRepository.findAllByStandardId(standardId);
     }

@@ -15,9 +15,9 @@ public class FeeController {
     @Autowired
     private FeeService feeService;
 
-    @GetMapping
-    public ResponseEntity<List<Fee>> getAllFee() {
-        return ResponseEntity.ok(feeService.getAllFees());
+    @GetMapping("/{sessionId}")
+    public ResponseEntity<List<Fee>> getAllFee(@PathVariable Long sessionId) {
+        return ResponseEntity.ok(feeService.getAllFees(sessionId));
     }
 
     @GetMapping("/{studentId}/{sessionId}")

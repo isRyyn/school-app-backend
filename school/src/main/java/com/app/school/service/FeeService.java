@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface FeeService {
 
-    List<Fee> getAllFees();
+    List<Fee> getAllFees(Long sessionId);
 
     Fee getFeesById(Long id);
 

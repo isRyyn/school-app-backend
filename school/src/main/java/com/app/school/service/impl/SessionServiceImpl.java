@@ -25,6 +25,11 @@ public class SessionServiceImpl implements SessionService {
     }
 
     @Override
+    public Session getSessionByName(String name) {
+        return sessionRepository.findByName(name).orElse(null);
+    }
+
+    @Override
     public Session addSession(Session session) {
         return sessionRepository.save(session);
     }

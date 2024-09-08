@@ -1,12 +1,10 @@
 package com.app.school.service.impl;
 
 import com.app.school.enums.Gender;
+import com.app.school.enums.Month;
+import com.app.school.model.Fee;
 import com.app.school.model.Student;
-import com.app.school.repository.StudentRepository;
-import com.app.school.repository.VehicleRepository;
-import com.app.school.service.StandardService;
-import com.app.school.service.StudentService;
-import com.app.school.service.VehicleService;
+import com.app.school.service.*;
 import org.apache.poi.ss.usermodel.DataFormatter;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
@@ -18,6 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.time.LocalDateTime;
 
 @Service
 public class ImportFileService {
@@ -31,7 +30,13 @@ public class ImportFileService {
     @Autowired
     private VehicleService vehicleService;
 
-    public void readExcelAndSaveData(MultipartFile file) {
+    @Autowired
+    private FeeService feeService;
+
+    @Autowired
+    private SessionService sessionService;
+
+    public void readExcelAndSaveStudentData(MultipartFile file) {
         try (InputStream inputStream = file.getInputStream();
              Workbook workbook = new XSSFWorkbook(inputStream)) {
 
@@ -111,4 +116,70 @@ public class ImportFileService {
             e.printStackTrace();
         }
     }
+
+    public void readExcelAndSaveFeesData(MultipartFile file) {
+        try (InputStream inputStream = file.getInputStream();
+             Workbook workbook = new XSSFWorkbook(inputStream)) {
+
+            Sheet sheet = workbook.getSheetAt(0);  // Read the first sheet
+
+            for (Row row : sheet) {
+                if (row.getRowNum() == 0 || row.getRowNum() == 1) {
+                    continue; // Skip header row
+                }
+
+                DataFormatter formatter = new DataFormatter();
+
+                Long id = (long) row.getCell(0).getNumericCellValue();
+                String uDiasCode = row.getCell(1).getStringCellValue();
+                String month = row.getCell(2).getStringCellValue();
+                String date = formatter.formatCellValue(row.getCell(3));
+                Double registration = row.getCell(4).getNumericCellValue();
+                Double monthly = row.getCell(5).getNumericCellValue();
+                Double van = row.getCell(6).getNumericCellValue();
+                Double course = row.getCell(7).getNumericCellValue();
+                Double copies = row.getCell(8).getNumericCellValue();
+                Double diary = row.getCell(9).getNumericCellValue();
+                Double shoes = row.getCell(10).getNumericCellValue();
+                Double socks = row.getCell(11).getNumericCellValue();
+                Double tieBelt = row.getCell(12).getNumericCellValue();
+                Double other = row.getCell(13).getNumericCellValue();
+                Double total = row.getCell(14).getNumericCellValue();
+                Double deposited = row.getCell(15).getNumericCellValue();
+                String session = row.getCell(16).getStringCellValue();
+
+                Fee fee = new Fee();
+                fee.setId(id);
+
+                Long studentId = studentService.getStudentByCode(uDiasCode).getId();
+                fee.setStudentId(studentId);
+
+                fee.setMonth(Month.valueOf(month));
+                fee.setDate(LocalDateTime.parse(date));
+                fee.setRegistration(registration);
+                fee.setMonthly(monthly);
+                fee.setVan(van);
+                fee.setCourse(course);
+                fee.setCopies(copies);
+                fee.setDiary(diary);
+                fee.setShoes(shoes);
+                fee.setSocks(socks);
+                fee.setTieBelt(tieBelt);
+                fee.setOther(other);
+                fee.setTotal(total);
+                fee.setDeposited(deposited);
+
+                Long sessionId = sessionService.getSessionByName(session).getId();
+                fee.setSessionId(sessionId);
+
+                feeService.addFees(fee);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+//    public void readExcelAndSaveMarksData(MultipartFile file) {
+//
+//    }
 }

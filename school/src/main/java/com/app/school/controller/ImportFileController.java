@@ -16,9 +16,21 @@ public class ImportFileController {
     @Autowired
     private ImportFileService importFileService;
 
-    @PostMapping()
-    public ResponseEntity uploadFile(@RequestParam("file") MultipartFile file) {
-        importFileService.readExcelAndSaveData(file);
+    @PostMapping("/student")
+    public ResponseEntity uploadStudentFile(@RequestParam("file") MultipartFile file) {
+        importFileService.readExcelAndSaveStudentData(file);
         return ResponseEntity.ok().build();
     }
+
+    @PostMapping("/fees")
+    public ResponseEntity uploadFeesFile(@RequestParam("file") MultipartFile file) {
+        importFileService.readExcelAndSaveFeesData(file);
+        return ResponseEntity.ok().build();
+    }
+
+//    @PostMapping("/marks")
+//    public ResponseEntity uploadMarksFile(@RequestParam("file") MultipartFile file) {
+//        importFileService.readExcelAndSaveMarksData(file);
+//        return ResponseEntity.ok().build();
+//    }
 }

@@ -11,6 +11,8 @@ public interface SessionService {
 
     Session getSessionById(Long id);
 
+    Session getSessionByName(String name);
+
     Session addSession(Session session);
 
     void deleteSession(Long id);

@@ -26,6 +26,7 @@ public class Fee {
     private Double socks;
     private Double van;
     private Double diary;
+    private Double other;
 
     @Enumerated(EnumType.STRING)
     private Month month;
@@ -138,6 +139,14 @@ public class Fee {
 
     public void setDiary(Double diary) {
         this.diary = diary;
+    }
+
+    public Double getOther() {
+        return other;
+    }
+
+    public void setOther(Double other) {
+        this.other = other;
     }
 
     public Month getMonth() {
