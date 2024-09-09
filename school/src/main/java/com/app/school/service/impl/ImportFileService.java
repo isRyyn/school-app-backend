@@ -125,7 +125,7 @@ public class ImportFileService {
             Sheet sheet = workbook.getSheetAt(0);  // Read the first sheet
 
             for (Row row : sheet) {
-                if (row.getRowNum() == 0) {
+                if (row.getRowNum() == 0 || row.getRowNum() == 1) {
                     continue; // Skip header row
                 }
 
