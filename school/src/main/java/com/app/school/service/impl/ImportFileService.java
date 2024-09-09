@@ -5,10 +5,7 @@ import com.app.school.enums.Month;
 import com.app.school.model.Fee;
 import com.app.school.model.Student;
 import com.app.school.service.*;
-import org.apache.poi.ss.usermodel.DataFormatter;
-import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.ss.usermodel.Sheet;
-import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,7 +13,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 @Service
 public class ImportFileService {
@@ -45,6 +43,10 @@ public class ImportFileService {
             for (Row row : sheet) {
                 if (row.getRowNum() == 0 || row.getRowNum() == 1) {
                     continue; // Skip header row
+                }
+
+                if (isRowEmpty(row)) {
+                    break;
                 }
 
                 DataFormatter formatter = new DataFormatter();
@@ -120,17 +122,24 @@ public class ImportFileService {
     public void readExcelAndSaveFeesData(MultipartFile file) {
         try (InputStream inputStream = file.getInputStream();
              Workbook workbook = new XSSFWorkbook(inputStream)) {
-
             Sheet sheet = workbook.getSheetAt(0);  // Read the first sheet
 
             for (Row row : sheet) {
-                if (row.getRowNum() == 0 || row.getRowNum() == 1) {
+                if (row.getRowNum() == 0) {
                     continue; // Skip header row
+                }
+
+                if (isRowEmpty(row)) {
+                    break;
                 }
 
                 DataFormatter formatter = new DataFormatter();
 
-                Long id = (long) row.getCell(0).getNumericCellValue();
+                Long id = null;
+                if(row.getCell(0) != null &&  row.getCell(0).getCellType() != CellType.BLANK) {
+                    id = (long) row.getCell(0).getNumericCellValue();
+                }
+
                 String uDiasCode = row.getCell(1).getStringCellValue();
                 String month = row.getCell(2).getStringCellValue();
                 String date = formatter.formatCellValue(row.getCell(3));
@@ -149,13 +158,18 @@ public class ImportFileService {
                 String session = row.getCell(16).getStringCellValue();
 
                 Fee fee = new Fee();
-                fee.setId(id);
+
+                if(id != null) {
+                    fee.setId(id);
+                } else {
+                    fee.setId(null);
+                }
 
                 Long studentId = studentService.getStudentByCode(uDiasCode).getId();
                 fee.setStudentId(studentId);
 
                 fee.setMonth(Month.valueOf(month));
-                fee.setDate(LocalDateTime.parse(date));
+                fee.setDate(LocalDate.parse(date, DateTimeFormatter.ofPattern("dd/MM/yyyy")).atStartOfDay());
                 fee.setRegistration(registration);
                 fee.setMonthly(monthly);
                 fee.setVan(van);
@@ -177,6 +191,16 @@ public class ImportFileService {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private static boolean isRowEmpty(Row row) {
+        if (row == null) return true;
+        for (Cell cell : row) {
+            if (cell.getCellType() != CellType.BLANK) {
+                return false;
+            }
+        }
+        return true;
     }
 
 //    public void readExcelAndSaveMarksData(MultipartFile file) {
