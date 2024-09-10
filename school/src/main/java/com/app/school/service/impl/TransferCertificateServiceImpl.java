@@ -2,6 +2,8 @@ package com.app.school.service.impl;
 
 import com.app.school.model.Student;
 import com.app.school.model.TransferCertificate;
+import com.app.school.model.TransferCertificateRegister;
+import com.app.school.repository.TransferCertificateRegisterRepository;
 import com.app.school.repository.TransferCertificateRepository;
 import com.app.school.service.StudentService;
 import com.app.school.service.TransferCertificateService;
@@ -17,11 +19,20 @@ public class TransferCertificateServiceImpl implements TransferCertificateServic
     TransferCertificateRepository transferCertificateRepository;
 
     @Autowired
+    TransferCertificateRegisterRepository transferCertificateRegisterRepository;
+
+    @Autowired
     StudentService studentService;
 
     @Override
     public List<TransferCertificate> getAllTransferCertificates() {
         return transferCertificateRepository.findAll();
+    }
+
+
+    @Override
+    public List<TransferCertificateRegister> getAllTransferCertificateRegister() {
+        return transferCertificateRegisterRepository.findAll();
     }
 
     @Override
@@ -35,5 +46,10 @@ public class TransferCertificateServiceImpl implements TransferCertificateServic
         student.setDocTC(true);
         studentService.addStudent(student, false, -1L);
         transferCertificateRepository.save(transferCertificate);
+    }
+
+    @Override
+    public void saveTransferCertificateRegister(TransferCertificateRegister transferCertificateRegister) {
+        transferCertificateRegisterRepository.save(transferCertificateRegister);
     }
 }
