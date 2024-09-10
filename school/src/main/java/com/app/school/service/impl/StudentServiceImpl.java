@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 public class StudentServiceImpl implements StudentService {
@@ -30,7 +31,7 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public List<Student> getAllStudents() {
-        return studentRepository.findAll();
+        return studentRepository.findAll().stream().filter(s -> s.getDocTC() == null || s.getDocTC() == false).collect(Collectors.toList());
     }
 
     @Override
@@ -45,27 +46,35 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public List<Student> getAllStudentdsByStandardId(Long standardId) {
-        return studentRepository.findAllByStandardId(standardId);
+        return studentRepository.findAllByStandardId(standardId).stream().filter(s -> s.getDocTC() == null || s.getDocTC() == false).collect(Collectors.toList());
     }
 
     @Override
     public Student addStudent(Student student, boolean addMapping, Long sessionId) {
 
-        // add student to selected class
-        Standard standard = standardService.getStandardById(student.getStandardId()).orElse(null);
-        if(standard != null) {
-            Set<Long>  standardIds = standard.getStudentIds();
-            standardIds.add(student.getId());
-            standard.setStudentIds(standardIds);
-            standardService.addStandard(standard);
+        boolean isEdit = false;
+        if(student.getId() != null) {
+            isEdit = true;
         }
 
         Student s = studentRepository.save(student);
 
-        if(addMapping && sessionId >= 0) {
-            // add student to session-standard mapping
-            this.addSessionStandardMapping(s.getId(), s.getStandardId(), sessionId);
+        if(!isEdit) {
+            // add student to selected class
+            Standard standard = standardService.getStandardById(student.getStandardId()).orElse(null);
+            if(standard != null) {
+                Set<Long>  standardIds = standard.getStudentIds();
+                standardIds.add(s.getId());
+                standard.setStudentIds(standardIds);
+                standardService.addStandard(standard);
+            }
+
+            if(addMapping && sessionId >= 0) {
+                // add student to session-standard mapping
+                this.addSessionStandardMapping(s.getId(), s.getStandardId(), sessionId);
+            }
         }
+
         return s;
     }
 

@@ -62,7 +62,6 @@ public class Student {
     private Boolean docPhotograph;
     private Boolean docDobCertificate;
 
-
     @ElementCollection
     private Set<Long> marksIds = new HashSet<>();
 
