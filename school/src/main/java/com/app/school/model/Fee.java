@@ -27,6 +27,12 @@ public class Fee {
     private Double van;
     private Double diary;
     private Double other;
+    private Double other2;
+    private Double other3;
+    private String notes;
+    private String uniqueId;
+    private Double discount;
+    private Boolean foc;
 
     @Enumerated(EnumType.STRING)
     private Month month;
@@ -187,5 +193,53 @@ public class Fee {
 
     public void setSessionId(Long sessionId) {
         this.sessionId = sessionId;
+    }
+
+    public Double getOther2() {
+        return other2;
+    }
+
+    public void setOther2(Double other2) {
+        this.other2 = other2;
+    }
+
+    public Double getOther3() {
+        return other3;
+    }
+
+    public void setOther3(Double other3) {
+        this.other3 = other3;
+    }
+
+    public String getNotes() {
+        return notes;
+    }
+
+    public void setNotes(String notes) {
+        this.notes = notes;
+    }
+
+    public String getUniqueId() {
+        return uniqueId;
+    }
+
+    public void setUniqueId(String uniqueId) {
+        this.uniqueId = uniqueId;
+    }
+
+    public Double getDiscount() {
+        return discount;
+    }
+
+    public void setDiscount(Double discount) {
+        this.discount = discount;
+    }
+
+    public Boolean getFoc() {
+        return foc;
+    }
+
+    public void setFoc(Boolean foc) {
+        this.foc = foc;
     }
 }

@@ -16,7 +16,7 @@ public class CorsConfig {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         CorsConfiguration config = new CorsConfiguration();
 
-        config.setAllowedOrigins(Arrays.asList("http://localhost:4200", "https://school.theuniqueimpex.com"));
+        config.setAllowedOrigins(Arrays.asList("http://localhost:4200", "http://147.79.67.229:8090", "http://private.zhconventschool.com", "https://private.zhconventschool.com"));
         config.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         config.addAllowedHeader("*");
         config.setAllowCredentials(true);
